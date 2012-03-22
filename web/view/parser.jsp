@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-<head><title>Goods jsp page</title></head>
+<head><title>Goods  jsp page</title></head>
 <body>
 <table border="1" cellspacing=3 align="center">
     <TR>
