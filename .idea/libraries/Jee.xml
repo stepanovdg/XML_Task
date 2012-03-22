@@ -1,0 +1,18 @@
+<component name="libraryTable">
+  <library name="Jee">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../Test Task/lib/javax.resource.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../Test Task/lib/javax.transaction.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../Test Task/lib/javax.persistence.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../Test Task/lib/javax.jms.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../Test Task/lib/jstl.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../Test Task/lib/javax.servlet.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../Test Task/lib/javax.servlet.jsp.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../Test Task/lib/javax.annotation.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../Test Task/lib/javax.ejb.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../Test Task/lib/javax.servlet.jsp.jstl.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

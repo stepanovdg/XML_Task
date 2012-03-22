@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<goods>
+    <category name="edible">
+        <subCategory name="foods">
+            <unit name="breakfast" producer="aaarrrr" model="sd478">
+                <dateOfIssue>29-02-2012</dateOfIssue>
+                <color>black</color>
+                <notInStock>true</notInStock>
+            </unit>
+            <unit name="ice" producer="aaarrrr" model="aa020">
+                <dateOfIssue>16-03-2012</dateOfIssue>
+                <color>black</color>
+                <price>13900</price>
+            </unit>
+            <unit name="pineapple" producer="aaavvv" model="aa021">
+                <dateOfIssue>16-03-2012</dateOfIssue>
+                <color>black</color>
+                <price>13700</price>
+            </unit>
+        </subCategory>
+        <subCategory name="drinks">
+            <unit name="juice" producer="aaarrrr" model="ab025">
+                <dateOfIssue>16-03-2012</dateOfIssue>
+                <color>brown</color>
+                <price>16500</price>
+            </unit>
+        </subCategory>
+    </category>
+    <category name="construction">
+        <subCategory name="outdoors">
+            <unit name="wall" producer="ccrrrr" model="ab045">
+                <dateOfIssue>16-05-2012</dateOfIssue>
+                <color>Серо-буро-малиновый</color>
+                <price>16500</price>
+            </unit>
+        </subCategory>
+        <subCategory name="indoors">
+            <unit name="door" producer="aasdfsrrrr" model="ag321">
+                <dateOfIssue>11-03-2012</dateOfIssue>
+                <color>brown</color>
+                <price>16500</price>
+            </unit>
+        </subCategory>
+    </category>
+    <category name="edible">
+        <subCategory name="drinks">
+            <unit name="beer" producer="aabrrrr" model="ab425">
+                <dateOfIssue>15-03-2012</dateOfIssue>
+                <color>yellow</color>
+                <price>14500</price>
+            </unit>
+        </subCategory>
+    </category>
+</goods>

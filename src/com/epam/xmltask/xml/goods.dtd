@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE goods [
+        <!ELEMENT goods (category)*>
+        <!ELEMENT category (subCategory)*>
+        <!ATTLIST category
+                name CDATA #REQUIRED>
+        <!ELEMENT subCategory (unit)*>
+        <!ATTLIST subCategory
+                name CDATA #REQUIRED>
+        <!ELEMENT unit (dateOfIssue|color,(notInStock|price))*>
+        <!ATTLIST unit
+                model CDATA #REQUIRED
+                name CDATA #REQUIRED
+                producer CDATA #REQUIRED>
+        <!ELEMENT dateOfIssue (#PCDATA)>
+        <!ELEMENT color (#PCDATA)>
+        <!ELEMENT notInStock (#PCDATA)>
+        <!ELEMENT price (#PCDATA)>
+        ]>
