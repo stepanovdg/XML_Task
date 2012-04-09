@@ -21,45 +21,34 @@ import java.util.ArrayList;
  * Time: 5:13 AM
  */
 public class StAXBuilder extends AbstractBuilder {
-    private static final String SQL_DATE_PATTERN = "{0}-{1}-{2}";
-    private static final String DON_T_EXIST_SUCH_FILE_OF_INIT_VEGET_XML_IN_THIS_DIRECTORY = "Don't exist such file of initVeget.xml in this directory";
-    private static final String PRICE = "price";
-    private static final String NOT_IN_STOCK = "notInStock";
-    private static final String COLOR = "color";
-    private static final String DATE_OF_ISSUE = "dateOfIssue";
-    private static final String MODEL = "model";
-    private static final String PRODUCER = "producer";
-    private static final String NAME = "name";
-    private static final String UNIT = "unit";
-    private static final String SUB_CATEGORY = "subCategory";
-    private static final String CATEGORY = "category";
-    private String currentElement;
-    TableElement tableElement;
-    ArrayList<TableElement> table = new ArrayList<>();
+    private static final String DON_T_EXIST_SUCH_XML_IN_THIS_DIRECTORY = "Don't exist such xml in this directory";
 
-    private void parse(InputStream input) {
+    private ArrayList<TableElement> parse(InputStream input,ArrayList<TableElement> table) {
         XMLInputFactory inputFactory =
                 XMLInputFactory.newInstance();
         try {
             XMLStreamReader reader =
                     inputFactory.createXMLStreamReader(input);
-            process(reader);
+            return this.process(reader,table);
         } catch (XMLStreamException e) {
             e.printStackTrace();
         }
+        return table;
     }
 
 
     @SuppressWarnings({"ConstantConditions"})
-    private void process(XMLStreamReader reader)
+    private ArrayList<TableElement> process(XMLStreamReader reader,ArrayList<TableElement> table)
             throws XMLStreamException {
-        String qName;
+        String currentElement = null;
+        TableElement tableElement = null;
+        String localName;
         while (reader.hasNext()) {
             int type = reader.next();
             switch (type) {
                 case XMLStreamConstants.START_ELEMENT:
-                    qName = reader.getLocalName();
-                    switch (qName) {
+                    localName = reader.getLocalName();
+                    switch (localName) {
                         case CATEGORY:
                             tableElement = new TableElement();
                             tableElement.setCategory(reader.getAttributeValue(null, NAME));
@@ -80,13 +69,13 @@ public class StAXBuilder extends AbstractBuilder {
                             tableElement.setModel(reader.getAttributeValue(null, MODEL));
                             break;
                         default:
-                            currentElement = qName;
+                            currentElement = localName;
                             break;
                     }
                     break;
                 case XMLStreamConstants.END_ELEMENT:
-                    qName = reader.getLocalName();
-                    switch (qName) {
+                    localName = reader.getLocalName();
+                    switch (localName) {
                         case CATEGORY:
                             currentElement = null;
                             break;
@@ -108,7 +97,7 @@ public class StAXBuilder extends AbstractBuilder {
                         switch (currentElement) {
                             case DATE_OF_ISSUE:
                                 String date = reader.getText();
-                                String[] dateArr = date.split("-");
+                                String[] dateArr = date.split(DATE_SPLITTER);
                                 date = MessageFormat.format(SQL_DATE_PATTERN, dateArr[2], dateArr[1], dateArr[0]);
                                 tableElement.setDateOfIssue(Date.valueOf(date));
                                 break;
@@ -130,20 +119,20 @@ public class StAXBuilder extends AbstractBuilder {
                 default:
                     break;
             }
-        }
+        } return table;
     }
 
 
     @Override
     public ArrayList<TableElement> build(String filePath) throws GoodsException {
         try {
-            InputStream input ;
+            InputStream input;
             input = new FileInputStream(filePath);
-            this.parse(input);
+            ArrayList<TableElement> table = new ArrayList<>();
+            return this.parse(input, table);
         } catch (FileNotFoundException e) {
-            String msg = DON_T_EXIST_SUCH_FILE_OF_INIT_VEGET_XML_IN_THIS_DIRECTORY;
+            String msg = DON_T_EXIST_SUCH_XML_IN_THIS_DIRECTORY;
             throw new GoodsException(msg, e);
         }
-        return table;
     }
 }

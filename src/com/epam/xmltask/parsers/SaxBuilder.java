@@ -22,19 +22,10 @@ public class SaxBuilder extends AbstractBuilder implements ContentHandler {
     private static final String THE_MISTAKE_OF_SAX_PARSER_IN_SAX = "The mistake of SAX Parser in SAX";
     private static final String DON_T_EXIST_SUCH_FILE_OF_INIT_VEGET_XML_IN_THIS_DIRECTORY = "Don't exist such file of in this directory";
     private static final String THE_MISTAKE_OF_I_O_STREAM_IN_SAX_ANALYZING_INIT_VEGET_XML = "The mistake of I/O stream in sax analyzing xml ";
-    private static final String SQL_DATE_PATTERN = "{0}-{1}-{2}";
-    private static final String CATEGORY = "category";
-    private static final String SUB_CATEGORY = "subCategory";
-    private static final String UNIT = "unit";
-    private static final String DATE_OF_ISSUE = "dateOfIssue";
-    private static final String COLOR = "color";
-    private static final String NOT_IN_STOCK = "notInStock";
-    private static final String PRICE = "price";
 
     private String currentElement;
-    TableElement tableElement;
-    ArrayList<TableElement> table = new ArrayList<>();
-
+    private TableElement tableElement;
+    private ArrayList<TableElement> table;
 
     @Override
     public void setDocumentLocator(Locator locator) {
@@ -63,39 +54,37 @@ public class SaxBuilder extends AbstractBuilder implements ContentHandler {
 
     @Override
     public void startElement(String uri, String localName, String qName, Attributes atts) throws SAXException {
-        switch (qName) {
+        switch (localName) {
             case CATEGORY:
                 tableElement = new TableElement();
-                tableElement.setCategory(atts.getValue(0));
+                tableElement.setCategory(atts.getValue(NAME));
                 break;
             case SUB_CATEGORY:
-                  if (currentElement == null) {
-                     tableElement =new TableElement(tableElement);
+                if (currentElement == null) {
+                    tableElement = new TableElement(tableElement);
                 }
-                tableElement.setSubCategory(atts.getValue(0));
+                tableElement.setSubCategory(atts.getValue(NAME));
                 break;
             case UNIT:
                 if (currentElement == null) {
-                     tableElement =new TableElement(tableElement);
+                    tableElement = new TableElement(tableElement);
                     tableElement.setStock(false);
                 }
-                tableElement.setUnit(atts.getValue(0));
-                tableElement.setProvider(atts.getValue(1));
-                tableElement.setModel(atts.getValue(2));
+                tableElement.setUnit(atts.getValue(NAME));
+                tableElement.setProvider(atts.getValue(PRODUCER));
+                tableElement.setModel(atts.getValue(MODEL));
                 break;
             default:
-                currentElement = qName;
+                currentElement = localName;
                 break;
         }
-
-        //получение и вывод информации об атрибутах элемента
 
 
     }
 
     @Override
     public void endElement(String uri, String localName, String qName) throws SAXException {
-        switch (qName) {
+        switch (localName) {
             case CATEGORY:
                 currentElement = null;
                 break;
@@ -119,7 +108,7 @@ public class SaxBuilder extends AbstractBuilder implements ContentHandler {
             switch (currentElement) {
                 case DATE_OF_ISSUE:
                     String date = new String(ch, start, length);
-                    String[] dateArr = date.split("-");
+                    String[] dateArr = date.split(DATE_SPLITTER);
                     date = MessageFormat.format(SQL_DATE_PATTERN, dateArr[2], dateArr[1], dateArr[0]);
                     tableElement.setDateOfIssue(Date.valueOf(date));
                     break;
@@ -159,9 +148,10 @@ public class SaxBuilder extends AbstractBuilder implements ContentHandler {
         try {
             XMLReader reader = XMLReaderFactory.createXMLReader(COM_SUN_ORG_APACHE_XERCES_INTERNAL_PARSERS_SAXPARSER);
             reader.setContentHandler(this);
+            table = new ArrayList<>();
             reader.parse(filePath);
         } catch (SAXException e) {
-            String msg = THE_MISTAKE_OF_SAX_PARSER_IN_SAX ;
+            String msg = THE_MISTAKE_OF_SAX_PARSER_IN_SAX;
             throw new GoodsException(msg, e);
         } catch (FileNotFoundException e) {
             String msg = DON_T_EXIST_SUCH_FILE_OF_INIT_VEGET_XML_IN_THIS_DIRECTORY;

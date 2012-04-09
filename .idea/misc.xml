@@ -414,6 +414,7 @@
     <pom-list />
   </component>
   <component name="ProjectResources">
+    <resource url="java:com.epam.xmltask.controller.Validator" location="$PROJECT_DIR$/src/com/epam/xmltask/controller/Validator.java" />
     <resource url="goods.dtd" location="$PROJECT_DIR$/src/com/epam/xmltask/xml/goods.dtd" />
     <resource url="http://www.w3.org/DTD/goods.dtd" location="$PROJECT_DIR$/src/com/epam/xmltask/xml/goods.dtd" />
     <default-html-doctype>http://www.w3.org/1999/xhtml</default-html-doctype>

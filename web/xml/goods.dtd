@@ -7,7 +7,7 @@
         <!ELEMENT subCategory (unit)*>
         <!ATTLIST subCategory
                 name CDATA #REQUIRED>
-        <!ELEMENT unit (dateOfIssue|color,(notInStock|price))*>
+        <!ELEMENT unit (dateOfIssue|color,(notInStock|price))?>
         <!ATTLIST unit
                 model CDATA #REQUIRED
                 name CDATA #REQUIRED

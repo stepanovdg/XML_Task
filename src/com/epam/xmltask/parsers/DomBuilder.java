@@ -23,13 +23,8 @@ import java.util.ArrayList;
 public class DomBuilder extends AbstractBuilder {
     private static final String THE_MISTAKE_OF_SAX_PARSER_IN_XERCES = "The mistake of SAX Parser in xerces";
     private static final String THE_MISTAKE_OF_I_O_STREAM_IN_XERCES_ANALYZING = "The mistake of I/O stream in xerces analyzing ";
-    private static final String NAME = "name";
-    private static final String PRODUCER = "producer";
-    private static final String MODEL = "model";
-    private static final String DATE_OF_ISSUE = "dateOfIssue";
-    private static final String SQL_DATE_PATTERN = "{0}-{1}-{2}";
-    private static final String COLOR = "color";
-    private static final String PRICE = "price";
+
+
 
 
     private ArrayList<TableElement> analyzeGoods(Element root) throws GoodsException {
@@ -69,7 +64,7 @@ public class DomBuilder extends AbstractBuilder {
                     tableElement.setProvider(unitElement.getAttribute(PRODUCER));
                     tableElement.setModel(unitElement.getAttribute(MODEL));
                     String date =  getBabyValue(unitElement, DATE_OF_ISSUE);
-                    String[] dateArr = date.split("-");
+                    String[] dateArr = date.split(DATE_SPLITTER);
                     date = MessageFormat.format(SQL_DATE_PATTERN, dateArr[2], dateArr[1], dateArr[0]);
                     tableElement.setDateOfIssue(Date.valueOf(date));
                     tableElement.setColor((getBabyValue(unitElement, COLOR)));
